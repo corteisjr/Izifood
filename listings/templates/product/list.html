@@ -14,14 +14,17 @@ Ecommerce
                 Categorias
             </h2>
             <ul class="list-group border-0 categorias_list">
-                <li class="list-group-item border-0 p-0 selected">
-                    <a href="" class="btn btn-block text-left">Todos</a>
+                <li {% if not requested_category %} class="list-group-item border-0 p-0 selected" {% else %}
+                    class="list-group-item border-0 p-0 unselected" {% endif %}>
+                    <a href="{% url 'product_list' %}" class="btn btn-block text-left">Todos</a>
                 </li>
 
                 {% for category in categories %}
-                <li class="list-group-item border-0 p-0 unselected">
-                    <a href="" class="btn btn-block text-left">{{ category.name }}</a>
+                <li
+                    class="list-group-item border-0 p-0 {% if category.slug == requested_category.slug %}selected{% else %}unselected{% endif %}">
+                    <a href="{{ category.get_absolute_url }}" class="btn btn-block text-left">{{ category.name }}</a>
                 </li>
+
                 {% endfor %}
             </ul>
         </div>
@@ -45,7 +48,7 @@ Ecommerce
                     </div>
                     <div class="item-text">
                         <div class="item-text-wrap">
-                            <a href="" class="h2 text-white text-decoration-none">
+                            <a href="{{ product.get_absolute_url }}" class="h2 text-white text-decoration-none">
                                 <i class="fas fa-search-plus"></i>
                             </a>
                         </div>

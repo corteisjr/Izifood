@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+
+{% block tiltle %}
+{{product.name}}
+{% endblock tiltle %}
+
+
+{% block content %}
+<div class="card shadow-custom border-0 col-lg-8    mx-auto">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <img src="{{product.image.url}}" alt="{{product.name}}" class="img-fluid rounded-0">
+        </div>
+        <div class="col-lg-6">
+            <div class="top">
+                <h2 class="mt-4 font-weight-bold text-gray">
+                    {{product.name}}
+                </h2>
+                <div>
+                    <span class="font-weight-bold text-gray">Picante:</span>
+                    {{product.shu}} SHU
+                </div>
+                <div>
+                    <span class="font-weight-bold text-gray">Volume:</span> 100ml
+                </div>
+            </div>
+            <div class="mt-3">
+                {{product.description}}
+            </div>
+
+            {% if product.available %}
+            <div class="alert alert-success my-3 text-center">
+                Disponivel
+            </div>
+            {% else %}
+            <div class="alert alert-danger my-3 text-center">
+                Indisponivel
+            </div>
+            {% endif %}
+            <hr>
+            <div class="review">
+                <span class="font-weight-bold text-gray">
+                    Avaliação: 4.5/5.0
+                </span>
+                <div class="mb-3 font-weight-bold">
+                    <a href="" class="text-warning" data-toggle="modal" data-target="#myModal">
+                        Avaliar
+                    </a>
+                </div>
+            </div>
+            <div class="mb-4">
+                <form>
+                    <span class="input-group add-to-card shadow-custom">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text font-weight-bold px-3 btn btn-block price">
+                                {{product.price}} Mzn
+                            </span>
+                        </div>
+                        <span id="minus" class="input-group-text button_minus px-4">
+                            -
+                        </span>
+                        <input type="number" value="1" class="form-control text-center px-3">
+                        <span id="plus" class="input-group-text button_plus px-4">
+                            +
+                        </span>
+                        <div class="input-group-append">
+                            <button class="btn btn-danger px-4  reduce_padding" type="submit" data-toggle="tooltip"
+                                data-placement="top" title="Adicionar ao carrinho">
+                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </span>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Escreva Sua Avaliação</h5>
+                <button class="close" data-dismiss="modla">x</button>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="bg-grey">
+                        <div class="text-center pt-2">
+                            Avaliação:
+                            <div class="d-inline text-center" id="full-stars">
+                                <div class="rating-group">
+                                    <label for="id_rating_0" class="rating__label">
+                                        <i class="rating__icon rating_icon--star fa fa-star"></i>
+                                    </label>
+                                    <input type="radio" class="rating__input" name="rating" id="id_rating_0" value="1"
+                                        required>
+                                    <label for="id_rating_1" class="rating__label">
+                                        <i class="rating__icon rating_icon--star fa fa-star"></i>
+                                    </label>
+                                    <input type="radio" class="rating__input" name="rating" id="id_rating_2" value="2"
+                                        required>
+                                    <label for="id_rating_2" class="rating__label">
+                                        <i class="rating__icon rating_icon--star fa fa-star"></i>
+                                    </label>
+                                    <input type="radio" class="rating__input" name="rating" id="id_rating_2" value="3"
+                                        required>
+
+                                    <label for="id_rating_3" class="rating__label">
+                                        <i class="rating__icon rating_icon--star fa fa-star"></i>
+                                    </label>
+                                    <input type="radio" class="rating__input" name="rating" id="id_rating_3" value="4"
+                                        required>
+
+                                    <label for="id_rating_4" class="rating__label">
+                                        <i class="rating__icon rating_icon--star fa fa-star"></i>
+                                    </label>
+                                    <input type="radio" class="rating__input" name="rating" id="id_rating_4" value="5"
+                                        checked required>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="m-0">
+                        <div class="input-field text-center p-2">
+                            <textarea cols="40" rows="6" class="form-control shadow px-2"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="submit">Avaliar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
