@@ -76,6 +76,24 @@
         </div>
     </div>
 </div>
+<hr class="col-7 mx-auto">
+<div class="card shadow-custom border-0 col-lg-8 mx-auto mb-3">
+    <h3 class="py-2 text-gray">
+        Avaliações:
+    </h3>
+
+    {% for review in product.reviews.all %}
+    <span class="font-weight-bold py-2 text-gray">
+        {{review.author}} - {{ review.rating}} / 5 - {{review.created}}
+    </span>
+    <span class="text-justify pb-2">
+        {{review.text}}
+    </span>
+    <hr>
+    {% empty %}
+    <span class="pb-2">Sem Avaliações</span>
+    {% endfor %}
+</div>
 <!-- Modal -->
 <div class="modal" id="myModal">
     <div class="modal-dialog">
@@ -84,46 +102,45 @@
                 <h5 class="modal-title">Escreva Sua Avaliação</h5>
                 <button class="close" data-dismiss="modla">x</button>
             </div>
-            <form>
+            <form method="post">
+                {% csrf_token %}
                 <div class="modal-body">
                     <div class="bg-grey">
                         <div class="text-center pt-2">
                             Avaliação:
                             <div class="d-inline text-center" id="full-stars">
                                 <div class="rating-group">
-                                    <label for="id_rating_0" class="rating__label">
-                                        <i class="rating__icon rating_icon--star fa fa-star"></i>
+                                    <label class="rating__label" for="id_rating_0">
+                                        <i class="rating__icon rating__icon--star fa fa-star"></i>
                                     </label>
-                                    <input type="radio" class="rating__input" name="rating" id="id_rating_0" value="1"
+                                    <input class="rating__input" name="rating" id="id_rating_0" value="1" type="radio"
                                         required>
-                                    <label for="id_rating_1" class="rating__label">
-                                        <i class="rating__icon rating_icon--star fa fa-star"></i>
+                                    <label class="rating__label" for="id_rating_1">
+                                        <i class="rating__icon rating__icon--star fa fa-star"></i>
                                     </label>
-                                    <input type="radio" class="rating__input" name="rating" id="id_rating_2" value="2"
+                                    <input class="rating__input" name="rating" id="id_rating_1" value="2" type="radio"
                                         required>
-                                    <label for="id_rating_2" class="rating__label">
-                                        <i class="rating__icon rating_icon--star fa fa-star"></i>
+                                    <label class="rating__label" for="id_rating_2">
+                                        <i class="rating__icon rating__icon--star fa fa-star"></i>
                                     </label>
-                                    <input type="radio" class="rating__input" name="rating" id="id_rating_2" value="3"
+                                    <input class="rating__input" name="rating" id="id_rating_2" value="3" type="radio"
                                         required>
-
-                                    <label for="id_rating_3" class="rating__label">
-                                        <i class="rating__icon rating_icon--star fa fa-star"></i>
+                                    <label class="rating__label" for="id_rating_3">
+                                        <i class="rating__icon rating__icon--star fa fa-star"></i>
                                     </label>
-                                    <input type="radio" class="rating__input" name="rating" id="id_rating_3" value="4"
+                                    <input class="rating__input" name="rating" id="id_rating_3" value="4" type="radio"
                                         required>
-
-                                    <label for="id_rating_4" class="rating__label">
-                                        <i class="rating__icon rating_icon--star fa fa-star"></i>
+                                    <label class="rating__label" for="id_rating_4">
+                                        <i class="rating__icon rating__icon--star fa fa-star"></i>
                                     </label>
-                                    <input type="radio" class="rating__input" name="rating" id="id_rating_4" value="5"
+                                    <input class="rating__input" name="rating" id="id_rating_4" value="5" type="radio"
                                         checked required>
                                 </div>
                             </div>
                         </div>
                         <hr class="m-0">
                         <div class="input-field text-center p-2">
-                            <textarea cols="40" rows="6" class="form-control shadow px-2"></textarea>
+                            {{review_form.text}}
                         </div>
                     </div>
                 </div>
