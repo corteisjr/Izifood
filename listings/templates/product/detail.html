@@ -41,13 +41,12 @@
             <hr>
             <div class="review">
                 <span class="font-weight-bold text-gray">
-                    Avaliação: 4.5/5.0
-                </span>
-                <div class="mb-3 font-weight-bold">
-                    <a href="" class="text-warning" data-toggle="modal" data-target="#myModal">
-                        Avaliar
-                    </a>
-                </div>
+                    Avaliação: {{product.get_average_review_score}}/5.0
+                    <div class="mb-3 font-weight-bold">
+                        <a href="" class="text-warning" data-toggle="modal" data-target="#myModal">
+                            Avaliar
+                        </a>
+                    </div>
             </div>
             <div class="mb-4">
                 <form>
