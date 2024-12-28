@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Confirmar pedido
+{% endblock title %}
+
+
+{% block content %}
+<div class="card shadow-custom border-0 col-lg-7 mx-auto mb-3">
+    <h3 class="py-2 font-weight-bold text-grey text-center">
+        Informações de entrega:
+    </h3>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="input-field">
+                    <label for="" class="text-muted">Nome</label>
+                    {{order_form.first_name}}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-field">
+                    <label for="" class="text-muted">Sobrenome</label>
+                    {{order_form.last_name}}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-field">
+                    <label for="" class="text-muted">Email</label>
+                    {{order_form.email}}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-field">
+                    <label for="" class="text-muted">Telefone</label>
+                    {{order_form.telephone}}
+                </div>
+            </div>
+        </div>
+        <hr class="mt-0">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="input-field">
+                    <label for="" class="text-muted">Endereço</label>
+                    {{order_form.address}}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-field">
+                    <label for="" class="text-muted">Código Postal</label>
+                    {{order_form.postal_code}}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-field">
+                    <label for="" class="text-muted">Cidade</label>
+                    {{order_form.city}}
+                </div>
+            </div>
+        </div>
+        <hr>
+        <h4 class="py-2 font-weight-bold text-grey">
+            Transporte:
+        </h4>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="radiobtn">
+                    <input type="radio" id="id_transport_0" name="transport" value="Moto taxi"
+                        amount="{{transport_cost}}" checked onclick="setTotalCost()">
+                    <label for="id_transport_0">
+                        Moto taxi <span class="text-danger float-right pr-3 font-weight-bold">
+                            {{transport_cost}} Mzn
+                        </span>
+                    </label>
+                </div>
+                <div class="radiobtn">
+                    <input type="radio" id="id_transport_1" name="transport" value="Recipient pickup" amount="gratís"
+                        onclick="setTotalCost()">
+                    <label for="id_transport_1">
+                        Retirada no local <span class="text-danger float-right pr-3 font-weight-bold">
+                            gratís
+                        </span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <hr class="mb-4">
+        <div class="input-field">
+            <label for="" class="text-muted">Observações</label>
+            {{order_form.note}}
+        </div>
+        <h4 class="py-2 font-weight-bold text-grey">
+            Preço total: <span id="order-total" class="text-danger float-right"></span>
+        </h4>
+</div>
+<div class="col-lg-7 mx-auto mb-3">
+    <div class="row justify-content-end">
+        <div class="col-lg-8 px-0">
+            <div class="btn-group d-flex">
+                <a href="{% url 'product_list' %}" class="btn btn-warning shadow-custom col">
+                    Voltar para a loja
+                </a>
+                <button type="submit" class="btn btn-danger shadow-custom col">
+                    Fazer pedido
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+{% endblock content %}
