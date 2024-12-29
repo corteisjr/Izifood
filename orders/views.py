@@ -1,8 +1,38 @@
 from django.shortcuts import render, get_object_or_404
 from .models import OrderItem, Product, Order
+from decouple import config
 from .forms import OrderCreateForm
 from cart.views import get_cart, cart_clear
 from decimal import Decimal
+from pprint import pprint
+from portalsdk import APIContext, APIMethodType, APIRequest
+
+
+def payment(request, order, total_price):
+    api_context = APIContext()
+    api_context.api_key = config('MPESA_API_KEY')
+    api_context.public_key = config('MPESA_PUBLIC_KEY')
+    api_context.ssl = True
+    api_context.method_type = APIMethodType.POST
+    api_context.address = 'api.sandbox.vm.co.mz'
+    api_context.port = 18352
+    api_context.path = '/ipg/v1x/c2bPayment/singleStage/'
+    
+    api_context.add_header('Origin', '*')
+
+    api_context.add_parameter('input_TransactionReference','T12344C')
+    api_context.add_parameter(f'input_CustomerMSISDN', '258' + order.telephone)
+    api_context.add_parameter(f'input_Amount', str(total_price))
+    api_context.add_parameter('input_ThirdPartyReference','111PA2D')
+    api_context.add_parameter('input_ServiceProviderCode','171717')
+
+
+    api_request = APIRequest(api_context)
+    result = api_request.execute()
+
+    pprint(result.status_code)
+    pprint(result.headers)
+    pprint(result.body)
 
 def order_create(request):
     cart = get_cart(request)
@@ -25,6 +55,14 @@ def order_create(request):
             product_ids = cart.keys()
             products = Product.objects.filter(id__in=product_ids)
             
+            total_price = sum(Decimal(product.price) * cart[str(product.id)]['quantity'] for product in products)
+            
+            if transport_cost:
+                total_price += Decimal(transport_cost)
+            else:
+                total_price
+            
+            payment(request, order, total_price)
             for product in products:
                 cart_item = cart[str(product.id)]
                 OrderItem.objects.create(

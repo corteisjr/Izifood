@@ -1,0 +1,8 @@
+setup.py
+integration_portal.egg-info/PKG-INFO
+integration_portal.egg-info/SOURCES.txt
+integration_portal.egg-info/dependency_links.txt
+integration_portal.egg-info/top_level.txt
+portalsdk/__init__.py
+portalsdk/api.py
+portalsdk/portal-sdk.py
