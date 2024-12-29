@@ -4,6 +4,7 @@ from datetime import datetime
 
 from django.http import HttpResponse
 
+from .tasks import status_change_notification
 from .models import Order, OrderItem, Product
 
 
@@ -72,6 +73,44 @@ def export_orders_to_xlsx(modeladmin, request, queryset):
 
 export_orders_to_xlsx.short_description = 'Exportar para XLSX'
 
+def status_change(queryset, status):
+    for order in queryset:
+        order.status = status
+        order.save()
+        status_change_notification.delay(order.id)    
+    
+
+def status_processing(modeladmin, request, queryset):
+    status_change(queryset, 'Processing') 
+
+status_processing.short_description = 'Mudar status para Processando'
+
+
+def status_Completed(modeladmin, request, queryset):
+    status_change(queryset, 'Completed')
+
+
+status_Completed.short_description = 'Mudar status para Completo'
+
+def status_Canceled(modeladmin, request, queryset):
+    status_change(queryset, 'Canceled')
+
+
+status_Canceled.short_description = 'Mudar status para Cancelado'
+
+
+def status_Shipped(modeladmin, request, queryset):
+    status_change(queryset, 'Shipped')
+
+
+status_Shipped.short_description = 'Mudar status para Enviado'
+
+def status_Ready_for_pickup(modeladmin, request, queryset):
+    status_change(queryset, 'Ready for pickup')
+
+
+status_Ready_for_pickup.short_description = 'Mudar status para Pronto para retirada'
+
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
     
@@ -81,7 +120,14 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ['status', 'created', 'updated']
     inlines = [OrderItemInline]
    
-    actions = [export_orders_to_xlsx] 
+    actions = [
+        export_orders_to_xlsx, 
+        status_processing,
+        status_Completed,
+        status_Canceled,
+        status_Shipped,
+        status_Ready_for_pickup
+        ] 
     
     
     

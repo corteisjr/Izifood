@@ -18,3 +18,22 @@ def order_created(order_id):
                           'yoocomerce@shop.com',
                             [order.email])
     return mail_sent
+  
+  
+@shared_task
+def status_change_notification(order_id):
+    """
+    Task to send an e-mail notification when an order status
+    is changed.
+    """
+    order = Order.objects.get(id=order_id)
+    subject = f'Pedido nr. {order.id}'
+    message = f'Caro {order.first_name},\n\n' \
+              f'O status do seu pedido foi atualizado.\n' \
+              f'Novo status: {order.status}.'
+    mail_sent = send_mail(subject,
+                          message,
+                          'yoocomerce@shop.com',
+                            [order.email])
+    
+    return mail_sent
