@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from .tasks import order_created
 from .models import OrderItem, Product, Order
 from decouple import config
 from .forms import OrderCreateForm
@@ -72,6 +73,7 @@ def order_create(request):
                     quantity=cart_item['quantity']
                 )
             cart_clear(request)
+            order_created.delay(order.id)
             
             return render(
                 request,
