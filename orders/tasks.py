@@ -51,6 +51,3 @@ def status_change_notification(order_id):
                             [order.email])
     
     return mail_sent
-  
-  
-@shared_task
