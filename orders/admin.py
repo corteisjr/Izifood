@@ -3,10 +3,19 @@ from django.contrib import admin
 from datetime import datetime
 
 from django.http import HttpResponse
+from django.urls import reverse
+from django.utils.html import format_html
 
 from .tasks import status_change_notification
 from .models import Order, OrderItem, Product
 
+
+def order_pdf(obj):
+    return format_html(
+        '<a href="{}" >PDF</a>',
+        reverse('invoice_pdf', args=[obj.id]))
+    
+order_pdf.short_description = 'Fatura PDF'
 
 def export_orders_to_xlsx(modeladmin, request, queryset):
     opts = modeladmin.model._meta
@@ -116,7 +125,7 @@ class OrderItemInline(admin.TabularInline):
     
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id', 'first_name', 'last_name', 'email', 'telephone', 'address', 'postal_code', 'city', 'created', 'updated', 'status', 'transport', 'transport_price', 'note']
+    list_display = ['id', 'first_name', 'last_name', 'email', 'telephone', 'address', 'postal_code', 'city', 'created', 'updated', 'status', 'transport', order_pdf]
     list_filter = ['status', 'created', 'updated']
     inlines = [OrderItemInline]
    
