@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Log In
+{% endblock title %}
+
+
+{% block content %}
+<div class="card shadow-custom border-0 col-lg-4 mx-auto mb-3">
+    <h3 class="py-2 font-weight-bold text-grey text-center">Acessar</h3>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="input-field">
+            {{form.email}}
+            <label for="email">Email</label>
+        </div>
+        <div class="input-field">
+            {{form.password}}
+            <label for="password">Senha</label>
+        </div>
+        <button class="btn btn-block btn-warning mb-3" type="submit">
+            Acessar
+        </button>
+    </form>
+</div>
+{% endblock content %}
