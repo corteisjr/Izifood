@@ -13,7 +13,7 @@ class OrderReviewInline(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'slug', 'shu', 'price', 'available']
+    list_display = ['name', 'slug', 'price', 'available']
     list_filter = ['available']
     list_editable = ['price', 'available']
     prepopulated_fields = {'slug': ('name',)}

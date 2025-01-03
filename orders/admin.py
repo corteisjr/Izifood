@@ -12,7 +12,7 @@ from .models import Order, OrderItem, Product
 
 def order_pdf(obj):
     return format_html(
-        '<a href="{}" >PDF</a>',
+        '<a href="{}" target="_blank">PDF</a>',
         reverse('invoice_pdf', args=[obj.id]))
     
 order_pdf.short_description = 'Fatura PDF'
