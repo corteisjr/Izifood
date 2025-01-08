@@ -30,6 +30,26 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav ml-auto">
+
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="" class="nav-link text-white">
+                            <i class="fas fa-user"></i>{{request.user.email}}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'logout'%}" class="nav-link text-white">
+                            <i class="fas fa-sign-in-out-alt"></i>Sair
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a href="{% url 'register' %}" class="nav-link text-white">
+                            <i class="fa fa-user-plus"></i>
+                            Registrar
+                        </a>
+                    </li>
+                    {% endif %}
                     <li class="nav-item">
                         <div class="dropdown-custom">
                             <a href="{% url 'cart_detail'%}" class="nav-link text-white drop-btn">

@@ -34,6 +34,8 @@ def product_detail(request, category_slug, product_slug):
         if review_form.is_valid():
             cf = review_form.cleaned_data
             author_name = "Anonymous"
+            if request.user.is_authenticated and request.user.first_name != '':
+                author_name = request.user.first_name
             Review.objects.create(
                 product=product,
                 author=author_name,

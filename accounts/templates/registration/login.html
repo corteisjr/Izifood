@@ -7,13 +7,25 @@ Log In
 
 
 {% block content %}
+
+{% if messages %}
+<div class="shadow-custom messages alert alert-danger col-lg-4 mx-auto text-center">
+    {% for message in messages %}
+    {% if message.tags == "error" %}
+    {{message}}
+    {% endif %}
+    <a href="" class="close">x</a>
+    {% endfor %}
+</div>
+{% endif %}
+
 <div class="card shadow-custom border-0 col-lg-4 mx-auto mb-3">
     <h3 class="py-2 font-weight-bold text-grey text-center">Acessar</h3>
-    <form action="" method="post">
+    <form action="" method="post" class="p-4">
         {% csrf_token %}
         <div class="input-field">
-            {{form.email}}
-            <label for="email">Email</label>
+            {{form.username}}
+            <label for="email">Usuário</label>
         </div>
         <div class="input-field">
             {{form.password}}

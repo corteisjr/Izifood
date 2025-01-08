@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Registro
+{% endblock title %}
+
+
+{% block content %}
+
+{% if messages %}
+<div class="shadow-custom messages alert alert-danger col-lg-5 mx-auto text-center">
+
+    {% for message in messages %}
+    {{message}}
+    <a href="" class="close">X</a>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="card shadow-custom border-0 col-lg-5 mx-auto mb-3">
+    <h3 class="py-3 font-weight-bold text-grey text-center">
+        Registro
+    </h3>
+    <form action="" method="post">
+        <div class="form-group">
+            {% csrf_token %}
+            <div class="input-field">
+                {{ user_form.first_name }}
+                <label for="first_name">First name</label>
+            </div>
+            <div class="input-field">
+                {{ user_form.last_name }}
+                <label for="last_name">Last name</label>
+            </div>
+            <div class="input-field">
+                {{ user_form.email }}
+                <label for="email">Email</label>
+            </div>
+            <div class="input-field">
+                {{ user_form.password }}
+                <label for="password">Password</label>
+            </div>
+            <div class="input-field">
+                {{ user_form.password2 }}
+                <label for="password2">Repeat password</label>
+            </div>
+            <button class="btn btn-block btn-warning mb-3" type="submit">Registrar</button>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

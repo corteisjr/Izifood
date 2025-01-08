@@ -55,6 +55,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'ecommerce_project.urls'
 
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'product_list'
+LOGOUT_REDIRECT_URL = 'product_list'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
