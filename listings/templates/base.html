@@ -38,15 +38,24 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{% url 'logout'%}" class="nav-link text-white">
-                            <i class="fas fa-sign-in-out-alt"></i>Sair
-                        </a>
+                        <form method="POST" action="{% url 'logout' %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-link btn btn-link text-white">
+                                <i class="fas fa-sign-in-out-alt"></i> Sair
+                            </button>
+                        </form>
                     </li>
                     {% else %}
                     <li class="nav-item">
                         <a href="{% url 'register' %}" class="nav-link text-white">
                             <i class="fa fa-user-plus"></i>
                             Registrar
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'login' %}" class="nav-link text-white">
+                            <i class="fa fa-user"></i>
+                            Login
                         </a>
                     </li>
                     {% endif %}
