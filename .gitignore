@@ -10,3 +10,4 @@ media
 venv
 local_settings.py
 ecommerce
+.env
