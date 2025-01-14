@@ -20,7 +20,7 @@ django-js-asset==3.0.1
 fonttools==4.55.3
 gunicorn==23.0.0
 idna==3.10
-integration-portal @ file:///home/corteisjr/estudos/ecommerce/portal-sdk
+# integration-portal @ file:///home/corteisjr/estudos/ecommerce/portal-sdk
 kombu==5.4.2
 Naked==0.1.32
 packaging==24.2
