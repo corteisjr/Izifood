@@ -12,7 +12,7 @@ ORDER_STATUS = (
 )
 
 TRANSPORT_CHOICES = [
-    ('Moto taxi', 'Moto táxi'),
+    ('Home delivery', 'Entrega ao domicílio'),
     ('Recipient pickup', 'Retirada no local')
 ]
 
@@ -35,7 +35,7 @@ class Order(models.Model):
     created = models.DateTimeField('Criado em', auto_now_add=True)
     updated = models.DateTimeField('Atualizado em', auto_now=True)
     status = models.CharField('Status', max_length=20, choices=ORDER_STATUS, default='Created')
-    transport = models.CharField('Transporte', max_length=20, choices=TRANSPORT_CHOICES, default='Moto taxi')
+    transport = models.CharField('Transporte', max_length=20, choices=TRANSPORT_CHOICES, default='Home delivery')
     transport_price = models.DecimalField('Preço do transporte', max_digits=10, decimal_places=2, default=0)
     note = models.TextField('Observação', blank=True)
     

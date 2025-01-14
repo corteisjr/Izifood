@@ -89,7 +89,7 @@ Perfil
                     {{order.get_total_cost|floatformat:2}}Mzn
                 </td>
                 <td>
-                    <a href="" class="text-decoration-none" target="_blank">
+                    <a href="{% url 'customer_invoice_pdf' order.id%}" class="text-decoration-none" target="_blank">
                         <i class="far fa-file-pdf text-danger"></i>
                         Fatura {{order.id}}
                     </a>
