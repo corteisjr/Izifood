@@ -12,15 +12,18 @@ click-plugins==1.1.1
 click-repl==0.3.0
 crypto==1.4.1
 cssselect2==0.7.0
+dj-database-url==2.3.0
 Django==5.1.4
 django-ckeditor==6.7.2
 django-jazzmin==3.0.1
 django-js-asset==3.0.1
 fonttools==4.55.3
+gunicorn==23.0.0
 idna==3.10
 integration-portal @ file:///home/corteisjr/estudos/ecommerce/portal-sdk
 kombu==5.4.2
 Naked==0.1.32
+packaging==24.2
 pillow==11.0.0
 prompt_toolkit==3.0.48
 psycopg2-binary==2.9.10
@@ -38,11 +41,13 @@ six==1.17.0
 sqlparse==0.5.3
 tinycss2==1.4.0
 tinyhtml5==2.0.0
+typing_extensions==4.12.2
 tzdata==2024.2
 urllib3==2.3.0
 vine==5.1.0
 wcwidth==0.2.13
 weasyprint==63.1
 webencodings==0.5.1
+whitenoise==6.8.2
 XlsxWriter==3.2.0
 zopfli==0.2.3.post1
