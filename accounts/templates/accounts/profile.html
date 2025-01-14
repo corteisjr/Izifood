@@ -76,6 +76,35 @@ Perfil
             </div>
         </div>
         <hr class="mt-0">
+        <h3 class="mb-3">Seus pedidos:</h3>
+        <table class="table">
+
+            {% for order in request.user.orders.all %}
+            <tr>
+                <td>
+                    <a href="" class="text-decoration-none">{{order.id}}</a>
+                </td>
+                <td>{{order.created|date}}</td>
+                <td class="text-green">
+                    {{order.get_total_cost|floatformat:2}}Mzn
+                </td>
+                <td>
+                    <a href="" class="text-decoration-none" target="_blank">
+                        <i class="far fa-file-pdf text-danger"></i>
+                        Fatura {{order.id}}
+                    </a>
+                </td>
+                <td>
+                    {{order.status}}
+                </td>
+                {% empty %}
+            <tr>
+                Você ainda não tem pedidos
+            </tr>
+            </tr>
+            {% endfor %}
+
+        </table>
         <div class="row">
             <button type="submit" class="btn col" data-toggle="tooltip" data-placement="top"
                 title="Preencha os novos dados e click em 'Atualizar perfil">

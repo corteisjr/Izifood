@@ -1,5 +1,6 @@
 from django.db import models
 from listings.models import Product
+from django.conf import settings
 
 ORDER_STATUS = (
     ('Created', 'Criado'),
@@ -17,6 +18,13 @@ TRANSPORT_CHOICES = [
 
 
 class Order(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='orders',
+        blank=True,
+        null=True
+    )
     first_name = models.CharField('Nome', max_length=50)
     last_name = models.CharField('Sobrenome', max_length=50)
     email = models.EmailField('Email')

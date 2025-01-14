@@ -72,6 +72,8 @@ def order_create(request):
                 transport_cost = 0
             
             order = order_form.save(commit=False)
+            if request.user.is_authenticated:
+                order.user = request.user
             order.transport_price = Decimal(transport_cost)
             order.save()
             
@@ -104,6 +106,17 @@ def order_create(request):
             )
     else:
         order_form = OrderCreateForm()
+        if request.user.is_authenticated:
+            initial_data = {
+                'first_name': request.user.first_name,
+                'last_name': request.user.last_name,
+                'email': request.user.email,
+                'telephone': request.user.profile.phone_number,
+                'address': request.user.profile.address,
+                'postal_code': request.user.profile.postal_code,
+                'city': request.user.profile.city
+            }
+            order_form = OrderCreateForm(initial=initial_data)
     
     return render(
         request,
