@@ -136,3 +136,11 @@ def customer_invoice_pdf(request, order_id):
     weasyprint.HTML(string=html).write_pdf(response, stylesheets=stylesheets)
     
     return response
+
+def order_detail(request, order_id):
+    order = Order.objects.get(pk=order_id)
+    return render(
+        request, 
+        'order_detail.html',
+        {'order': order}
+    )

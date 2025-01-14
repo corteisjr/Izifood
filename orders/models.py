@@ -1,6 +1,8 @@
 from django.db import models
 from listings.models import Product
 from django.conf import settings
+from django.urls import reverse
+
 
 ORDER_STATUS = (
     ('Created', 'Criado'),
@@ -50,6 +52,12 @@ class Order(models.Model):
         total_cost += self.transport_price
         return total_cost
     
+    def get_absolute_url(self):
+        return reverse(
+            'order_detail',
+            args=[self.id]
+        )
+    
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name='order_items', on_delete=models.CASCADE)
@@ -61,4 +69,5 @@ class OrderItem(models.Model):
     
     def get_cost(self):
         return self.price * self.quantity
-    
+
+

@@ -82,7 +82,7 @@ Perfil
             {% for order in request.user.orders.all %}
             <tr>
                 <td>
-                    <a href="" class="text-decoration-none">{{order.id}}</a>
+                    <a href="{{ order.get_absolute_url }}" class="text-decoration-none">{{order.id}}</a>
                 </td>
                 <td>{{order.created|date}}</td>
                 <td class="text-green">
