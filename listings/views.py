@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render, get_object_or_404
+from django.core.paginator import Paginator
 
 from cart.forms import CartAddProductForm
 from listings.forms import ReviewForm
@@ -14,13 +15,23 @@ def product_list(request, category_slug=None):
         request_category = get_object_or_404(Category, slug=category_slug)
         products = Product.objects.filter(category=request_category)
     
+    # Pagination
+    if len(products) > 0:
+        paginator = Paginator(products, 8)
+        page = request.GET.get('page')
+        products = paginator.get_page(page)
+    
+    get_copy = request.GET.copy()
+    parameters = get_copy.pop('page', True) and get_copy.urlencode()
+    
     return render(
         request,
         'product/list.html',
         {
             'categories': categories,
             'request_category': request_category,
-            'products': products
+            'products': products,
+            'parameters': parameters
         }
     )
     

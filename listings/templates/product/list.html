@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
 Ecommerce
@@ -8,7 +9,7 @@ Ecommerce
 {% block content %}
 
 <div class="row justify-content-center">
-    <div class="col-3">
+    <div class="col-3 d-none d-md-block">
         <div class="card shadow-custom border-0">
             <h2 class="p-3 font-weight-bold text-gray">
                 Categorias
@@ -24,12 +25,12 @@ Ecommerce
                     class="list-group-item border-0 p-0 {% if category.slug == requested_category.slug %}selected{% else %}unselected{% endif %}">
                     <a href="{{ category.get_absolute_url }}" class="btn btn-block text-left">{{ category.name }}</a>
                 </li>
-
                 {% endfor %}
             </ul>
         </div>
     </div>
-    <div class="col-lg-8">
+
+    <div class="col-lg-8 mx-auto">
         <div class="card shadow-custom border-0 mb-4">
             <div class="card-body text-center">
                 <h2 class="font-weight-bold text-gray">
@@ -38,33 +39,59 @@ Ecommerce
                 <div class="bottom_line"></div>
             </div>
         </div>
-        <div class="row no-gutters">
 
+        <div class="row">
             {% for product in products %}
-            <div class="card product">
-                <div class="item">
-                    <div class="item-image">
-                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid rounded-0">
-                    </div>
-                    <div class="item-text">
-                        <div class="item-text-wrap">
-                            <a href="{{ product.get_absolute_url }}" class="h2 text-white text-decoration-none">
-                                <i class="fas fa-search-plus"></i>
-                            </a>
+            <div class="col-sm-6 col-md-4 col-lg-3 d-flex align-items-stretch mb-4">
+                <div class="card shadow-sm w-100">
+                    <div class="item">
+                        <div class="item-image">
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid rounded-0">
                         </div>
-                    </div>
-                    <div class="card-body text-center">
-                        {{ product.name }}
-                        <hr>
-                        <spa>{{product.price}} Mzn</spa>
+                        <div class="item-text">
+                            <div class="item-text-wrap">
+                                <a href="{{ product.get_absolute_url }}" class="h2 text-white text-decoration-none">
+                                    <i class="fas fa-search-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body text-center">
+                            <h5>{{ product.name }}</h5>
+                            <hr>
+                            <span>{{ product.price }} Mzn</span>
+                        </div>
                     </div>
                 </div>
             </div>
+            {% empty %}
+            <div class="col-12 d-flex justify-content-center align-items-center" style="height: 200px;">
+                <img src="{% static 'img/empty.png' %}" alt="" width="40px">
+                <br>
+                <span class="text-center  d-block font-weight-bold text-muted lead">
+                    Sem Produto, para esta categoria!
+                </span>
+            </div>
             {% endfor %}
-
         </div>
     </div>
-    <div class="col-lg-3"></div>
 </div>
+<!-- Pagination -->
+<nav class="navigation" aria-label="Page navigation">
+    <ul class="pagination d-flex justify-content-end">
+        {% if products.has_previous %}
+        <li class="page-item"> <a class="page-link" href="?page=1{{ parameters }}">&laquo; Primeiro</a></li>
+        <li class="page-item"> <a class="page-link"
+                href="?page={{products.previous_page_number }} {{ parameters }}">Anterior</a></li>
+        {% endif %}
+        <li class="page-item"><a href="#" class="page-link">Página {{products.number }} de
+                {{products.paginator.num_pages}}.</a></li>
+        {% if products.has_next %}
+        <li class="page-item"><a href="?page={{ products.next_page_number }} {{ parameters }}"
+                class="page-link">Próximo</a></li>
+        <li class="page-item"><a href="?page={{ products.paginator.num_pages }} {{ parameters }}"
+                class="page-link">Último &raquo;</a></li>
+        {% endif %}
+    </ul>
+</nav>
 <hr>
 {% endblock content %}
