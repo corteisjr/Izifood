@@ -6,6 +6,21 @@ Confirmar pedido
 
 
 {% block content %}
+{% if messages %}
+
+{% for message in messages %}
+
+{% if message.tags == 'error' %}
+<div class="shadow-custom messages alert alert-danger text-center col-lg-7 mx-auto">
+    {% else %}
+    <div class="shadow-custom messages alert alert-success text-center col-lg-7 mx-auto">
+        {% endif %}
+        {{message}}
+        <a href="" class="close">x</a>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
 <div class="card shadow-custom border-0 col-lg-7 mx-auto mb-3">
     <h3 class="py-2 font-weight-bold text-grey text-center">
         Informações de entrega:
@@ -89,6 +104,35 @@ Confirmar pedido
                         Retirada no local <span class="text-danger float-right pr-3 font-weight-bold">
                             gratís
                         </span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <hr class="mb-4">
+        <h4 class="py-2 font-weight-bold text-grey">
+            Meios de Pagamento
+        </h4>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="radiobtn">
+                    <input type="radio" id="id_payment_method_0" name="payment_method" value="mpesa" checked onclick="">
+                    <label for="id_payment_method_0">
+                        <img width="30" height="30" src="https://img.icons8.com/color/48/mpesa.png" alt="mpesa" />
+                        Mpesa
+                    </label>
+                </div>
+                <div class="radiobtn">
+                    <input type="radio" id="id_payment_method_1" name="payment_method" value="dinheiro" onclick="">
+                    <label for="id_payment_method_1">
+                        <img width="30" height="30" src="https://img.icons8.com/color/48/cash.png" alt="cash" />
+                        Dinheiro
+                    </label>
+                </div>
+                <div class="radiobtn">
+                    <input type="radio" id="id_payment_method_2" name="payment_method" value="visa" onclick="">
+                    <label for="id_payment_method_2">
+                        <img width="30" height="30" src="https://img.icons8.com/color/48/visa.png" alt="visa" />
+                        Cartão
                     </label>
                 </div>
             </div>

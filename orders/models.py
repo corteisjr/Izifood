@@ -13,6 +13,12 @@ ORDER_STATUS = (
     ('Canceled', 'Cancelado')
 )
 
+PAYMENT_METHOD = (
+    ('mpesa', 'Mpesa'),
+    ('dinheiro', 'Dinheiro'),
+    ('visa', 'Visa')
+)
+
 TRANSPORT_CHOICES = [
     ('Home delivery', 'Entrega ao domicílio'),
     ('Recipient pickup', 'Retirada no local')
@@ -40,7 +46,7 @@ class Order(models.Model):
     transport = models.CharField('Transporte', max_length=20, choices=TRANSPORT_CHOICES, default='Home delivery')
     transport_price = models.DecimalField('Preço do transporte', max_digits=10, decimal_places=2, default=0)
     note = models.TextField('Observação', blank=True)
-    
+    payment_method = models.CharField('Métodos de pagemento', max_length=20, choices=PAYMENT_METHOD, default='mpesa')
     class Meta:
         ordering = ('-created',)
         

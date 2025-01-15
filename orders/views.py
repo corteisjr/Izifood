@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 from .tasks import order_created
 from .models import OrderItem, Product, Order
@@ -46,13 +47,13 @@ def payment(request, order, total_price):
     api_context.add_parameter('input_ThirdPartyReference','111PA2D')
     api_context.add_parameter('input_ServiceProviderCode','171717')
 
-
     api_request = APIRequest(api_context)
     result = api_request.execute()
 
     pprint(result.status_code)
     pprint(result.headers)
     pprint(result.body)
+    return result
 
 def order_create(request):
     cart = get_cart(request)
@@ -64,6 +65,7 @@ def order_create(request):
         if order_form.is_valid():
             cf = order_form.cleaned_data
             transport = cf['transport']
+            payment_method = cf['payment_method']
             
             if transport == 'Recipient pickup':
                 transport_cost = 0
@@ -84,23 +86,44 @@ def order_create(request):
             else:
                 total_price
             
-            payment(request, order, total_price)
-            for product in products:
-                cart_item = cart[str(product.id)]
-                OrderItem.objects.create(
-                    order=order,
-                    product=product,
-                    price=cart_item['price'],
-                    quantity=cart_item['quantity']
+            if payment_method == 'mpesa':
+                mpesa_order = payment(request, order, total_price)            
+                if mpesa_order.status_code == 200:             
+                    for product in products:
+                        cart_item = cart[str(product.id)]
+                        OrderItem.objects.create(
+                            order=order,
+                            product=product,
+                            price=cart_item['price'],
+                            quantity=cart_item['quantity']
+                        )
+                    cart_clear(request)
+                    order_created.delay(order.id)
+                    
+                    return render(
+                        request,
+                        'order_created.html',
+                        {'order': order}
+                    )
+                else:
+                    messages.error(request, 'Erro na transação!')
+            else:
+                for product in products:
+                    cart_item = cart[str(product.id)]
+                    OrderItem.objects.create(
+                        order=order,
+                        product=product,
+                        price=cart_item['price'],
+                        quantity=cart_item['quantity']
+                    )
+                cart_clear(request)
+                order_created.delay(order.id)
+                
+                return render(
+                    request,
+                    'order_created.html',
+                    {'order': order}
                 )
-            cart_clear(request)
-            order_created.delay(order.id)
-            
-            return render(
-                request,
-                'order_created.html',
-                {'order': order}
-            )
     else:
         order_form = OrderCreateForm()
         if request.user.is_authenticated:

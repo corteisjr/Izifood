@@ -13,7 +13,8 @@ class OrderCreateForm(forms.ModelForm):
             'postal_code',
             'city',
             'note',
-            'transport'
+            'transport',
+            'payment_method',
         ]
         
         widgets = {
@@ -26,4 +27,5 @@ class OrderCreateForm(forms.ModelForm):
             'city': forms.TextInput(attrs={'class': 'form-control'}),
             'note': forms.Textarea(attrs={'class': 'form-control'}),
             'transport': forms.RadioSelect,
+            'payment_method': forms.RadioSelect,
         }
