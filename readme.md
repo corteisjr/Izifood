@@ -5,35 +5,51 @@ Este é um projeto de e-commerce desenvolvido para fins de estudo. Ele inclui fu
 ## Como Executar
 
 1. Clone o repositório:
+
     ```sh
     git clone https://github.com/seu-usuario/ecommerce.git
     ```
+
 2. Navegue até o diretório do projeto:
+
     ```sh
     cd ecommerce
     ```
+
 3. Crie um ambiente virtual:
+
     ```sh
     python -m venv venv
     ```
+
 4. Ative o ambiente virtual:
+
     - No Windows:
+
         ```sh
         venv\Scripts\activate
         ```
+
     - No Unix ou MacOS:
+
         ```sh
         source venv/bin/activate
         ```
+
 5. Instale as dependências:
+
     ```sh
     pip install -r requirements.txt
     ```
+
 6. Inicie o servidor:
+
     ```sh
     python manage.py runserver
     ```
+
 8. Adicione um arquivo .env 
+
    ```sh
     SECRET_KEY = '...'
     POSTGRES_DB = '...'
@@ -41,6 +57,7 @@ Este é um projeto de e-commerce desenvolvido para fins de estudo. Ele inclui fu
     POSTGRES_PASSWORD = '...'
     DB_PORT: '...'
    ```
+
 9. Dentro do ecommerce_project , crie um arquivo local_setting.py e adicione:
     ```sh
         from decouple import config
