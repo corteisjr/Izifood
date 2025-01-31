@@ -1,4 +1,4 @@
-# E-commerce Project
+# E-commerce IziFood
 
 Este é um projeto de e-commerce desenvolvido para fins de estudo. Ele inclui funcionalidades básicas de um sistema de comércio eletrônico, como cadastro de produtos, carrinho de compras e finalização de pedidos.
 
@@ -33,7 +33,32 @@ Este é um projeto de e-commerce desenvolvido para fins de estudo. Ele inclui fu
     ```sh
     python manage.py runserver
     ```
-7. Abra seu navegador e acesse `http://localhost:8000` para ver o projeto em execução.
+8. Adicione um arquivo .env 
+   ```sh
+    SECRET_KEY = '...'
+    POSTGRES_DB = '...'
+    POSTGRES_USER = '...'
+    POSTGRES_PASSWORD = '...'
+    DB_PORT: '...'
+   ```
+9. Dentro do ecommerce_project , crie um arquivo local_setting.py e adicione:
+    ```sh
+        from decouple import config
+        
+        SECRET_KEY = config('SECRET_KEY')
+
+        DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': config('POSTGRES_DB'),
+            'USER': config('POSTGRES_USER'),
+            'PASSWORD': config('POSTGRES_PASSWORD'),
+            'HOST': 'localhost',
+            'PORT': config('DB_PORT', default='5434')
+            }
+        }
+    ``
+10. Abra seu navegador e acesse `http://localhost:8000` para ver o projeto em execução.
 
 ## Como Contribuir
 
@@ -51,10 +76,3 @@ Este é um projeto de e-commerce desenvolvido para fins de estudo. Ele inclui fu
     git push origin minha-feature
     ```
 5. Abra um Pull Request para a branch `main` do repositório original.
-
-## Imagens
-
-Adicione aqui algumas imagens do projeto em funcionamento.
-
-![Imagem 1](path/to/image1.png)
-![Imagem 2](path/to/image2.png)
