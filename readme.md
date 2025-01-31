@@ -93,3 +93,14 @@ Este é um projeto de e-commerce desenvolvido para fins de estudo. Ele inclui fu
     git push origin minha-feature
     ```
 5. Abra um Pull Request para a branch `main` do repositório original.
+
+
+![image](https://github.com/user-attachments/assets/157d33ab-15aa-4b07-bdf2-8e478c83aa6e)
+![image](https://github.com/user-attachments/assets/89db6825-0df3-46fd-b4a2-024bb3003eb1)
+![image](https://github.com/user-attachments/assets/a8b6436d-0ec1-4ab3-b399-5da1b245d7ac)
+![image](https://github.com/user-attachments/assets/1b8bd444-f892-478d-8217-b807dede012f)
+![image](https://github.com/user-attachments/assets/1d5a727f-d09b-4c3a-a029-23b096dbaace)
+
+
+
+
