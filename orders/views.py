@@ -38,12 +38,12 @@ def payment(request, order, total_price):
     api_context.address = 'api.sandbox.vm.co.mz'
     api_context.port = 18352
     api_context.path = '/ipg/v1x/c2bPayment/singleStage/'
-    
+
     api_context.add_header('Origin', '*')
 
     api_context.add_parameter('input_TransactionReference','T12344C')
-    api_context.add_parameter(f'input_CustomerMSISDN', '258' + order.telephone)
-    api_context.add_parameter(f'input_Amount', str(total_price))
+    api_context.add_parameter('input_CustomerMSISDN', f'258{order.telephone}')
+    api_context.add_parameter('input_Amount', str(total_price))
     api_context.add_parameter('input_ThirdPartyReference','111PA2D')
     api_context.add_parameter('input_ServiceProviderCode','171717')
 
@@ -55,7 +55,7 @@ def payment(request, order, total_price):
     pprint(result.body)
     return result
 
-def order_create(request):
+def order_create(request):  # sourcery skip: low-code-quality
     cart = get_cart(request)
     cart_qty = sum(item['quantity'] for item in cart.values())
     transport_cost = round((70 + (cart_qty // 10) * 1.5), 2)

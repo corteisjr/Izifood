@@ -47,6 +47,7 @@ class Order(models.Model):
     transport_price = models.DecimalField('Preço do transporte', max_digits=10, decimal_places=2, default=0)
     note = models.TextField('Observação', blank=True)
     payment_method = models.CharField('Métodos de pagemento', max_length=20, choices=PAYMENT_METHOD, default='mpesa')
+    
     class Meta:
         ordering = ('-created',)
         

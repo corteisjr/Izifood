@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 
 from accounts.models import Profile
@@ -18,7 +18,7 @@ def profile(request):
     if request.method == 'POST':
         email = request.POST['email']
         user = None
-        
+
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
@@ -124,7 +124,7 @@ def register(request):
             )
     else:
         user_form = UserRegistrationForm()
-        return render (
+        return render(
             request,
             'accounts/register.html',
             {'user_form': user_form}

@@ -7,7 +7,7 @@ REVIEW_CHOICES = [
     ('3', '3'),
     ('4', '4'),
     ('5', '5')
-    ]
+]
 
 
 class ReviewForm(forms.ModelForm):

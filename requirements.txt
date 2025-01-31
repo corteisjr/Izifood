@@ -17,19 +17,23 @@ Django==5.1.4
 django-ckeditor==6.7.2
 django-jazzmin==3.0.1
 django-js-asset==3.0.1
+flake8==7.1.1
 fonttools==4.55.3
 gunicorn==23.0.0
 idna==3.10
 integration-portal @ file:///home/corteisjr/estudos/ecommerce/portal-sdk
 kombu==5.4.2
+mccabe==0.7.0
 Naked==0.1.32
 packaging==24.2
 pillow==11.0.0
 prompt_toolkit==3.0.48
 psycopg2-binary==2.9.10
+pycodestyle==2.12.1
 pycparser==2.22
 pycryptodome==3.21.0
 pydyf==0.11.0
+pyflakes==3.2.0
 pyphen==0.17.0
 python-dateutil==2.9.0.post0
 python-decouple==3.8
